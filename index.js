@@ -13,7 +13,10 @@ app.use(bodyParser.json());
 app.listen(3000);
 console.log('Server is online.');
 
-
+app.get('/', function(req, res) {
+  res.send('hi')
+  res.status(200);
+})
 app.post('/', function(req, res) {
   // リクエストボディを出力
   console.log(req.body);
@@ -21,7 +24,7 @@ app.post('/', function(req, res) {
   res.send('POST request to the homepage');
   if (req.body.mode == 'write') {
     if (req.body.info) {
-      let data =`[${getTime()}] ${req.body.info}\n`;
+      let data =`[${getTime('date')}] ${req.body.info}\n`;
       let file = fs.readFileSync('data.txt','utf-8');
       let output = data + file;
       fs.writeFileSync('data.txt', output)
